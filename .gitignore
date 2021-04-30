@@ -3,3 +3,9 @@
 *o
 *.make
 *.cmake
+*.jpg
+*.pkl
+*.wav
+*.mov
+*.mp4
+
