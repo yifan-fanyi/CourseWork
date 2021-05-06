@@ -79,9 +79,14 @@ The audio summary is based on the summary result of the video, given the bool in
 ***
 ### Usage
 the main function is in `main.py`
-```python
-# rename the image to format start from 0.jpg 
-run(name='test',            # Sequence frame folder name (under ./data/)
+```python 
+# put the frame in one folder under ./data
+#   rename the image to format start from 0.jpg 
+# put the wav file in ./data with the same name as the frame folder's name
+# ./result folder saves the result if copy_to_result==True (may need to mkdir it)
+# ./cache is the working dir, main will copy data to cache before the pipline
+#
+main(name='test',            # Sequence frame folder name (under ./data/)
                             # the frame must named from 0.jpg to *.jpg
     mode=2,                 # 0: keypoint based
                             # 1: SSIM based
