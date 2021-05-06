@@ -29,13 +29,15 @@ def player(frames_path, audio_path, fps, size=None):
     buff, buff_size = [], 20                     # buffer for storing the image to be shown
     for i in range(buff_size):                   # pre-load some images
         buff.append(load_one_img(frames_path, i, size))
-    if audio_path is not None:
-        wave_obj = simpleaudio.WaveObject.from_wave_file(audio_path)   # play audio
-        wave_obj.play()
+    
     t1 = time.time()
+    cv2.namedWindow(frames_path, cv2.WINDOW_NORMAL)
     for i in range(buff_size, 50000):
         try:
             cv2.imshow(frames_path, buff[0])
+            if audio_path is not None and i == buff_size:
+                wave_obj = simpleaudio.WaveObject.from_wave_file(audio_path)   # play audio
+                wave_obj.play()
             start = time.time()
             buff.pop(0)                                         # remove already shown image
             try:
@@ -61,4 +63,4 @@ if __name__ == "__main__":
     fps = 30
     if len(sys.argv) > 3:
         fps = (int)(sys.argv[3])
-    player(sys.argv[1], sys.argv[2], fps)
+    player(sys.argv[1]+'/', sys.argv[2], fps)

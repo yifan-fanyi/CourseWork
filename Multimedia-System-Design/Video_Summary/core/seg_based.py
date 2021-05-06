@@ -56,7 +56,7 @@ def IoU(pred, target, n_classes=21, ignore=[0]):
         return 0.
     return I / U
     
-def select_by_IoU_seq(n_frames, isSeg, keeprate, iou_TH, available=False):
+def select_by_IoU(n_frames, isSeg, keeprate, iou_TH, available=False, history=1):
     model = pspnet_101_voc12() 
     isSeg *= 0
     iou_list = np.zeros((n_frames, n_frames))
@@ -66,7 +66,7 @@ def select_by_IoU_seq(n_frames, isSeg, keeprate, iou_TH, available=False):
             image_seg(model, frame, i)
         isSeg[i] = 1
         x1 = cv2.imread("./cache/seg_mask/"+str(i)+'.png', 0)
-        for j in range(i-1, -1, -1):
+        for j in range(i-1, max(i-1-history, -1), -1):
             if isSeg[j] == 2 or n_match_list[i, j] != 0:
                 continue
             x2 = cv2.imread("./cache/seg_mask/"+str(j)+'.png', 0)
@@ -86,36 +86,3 @@ def select_by_IoU_seq(n_frames, isSeg, keeprate, iou_TH, available=False):
             isSeg[ii] = 2
         tmp[idx] = -1
     return isSeg 
-
-def select_by_IoU(n_frames, isSeg, keeprate, iou_TH):
-    stride = (int)(n_frames*keeprate)
-    model = pspnet_101_voc12() 
-    #processed = []
-    while stride > 0:
-        last = -1
-        for i in range(0, n_frames, stride):
-            if isSeg[i] == 0:
-                frame = cv2.imread('./cache/frames/'+str(i)+'.jpg')
-                image_seg(model, frame, i)
-                isSeg[i] = 1
-                #processed.append(i)
-            if last >= 0:
-                if isSeg[i] == 1 and isSeg[last] == 1:
-                    x1 = cv2.imread("./cache/seg_mask/"+str(i)+'.png', 0)
-                    x2 = cv2.imread("./cache/seg_mask/"+str(last)+'.png', 0)
-                    iou = IoU(x1, x2)
-                    #print('check', iou, i, last, processed)
-                    if iou > iou_TH:
-                        isSeg[last+1:i] = 2
-            last = i
-        stride = stride // 2
-    return isSeg 
-
-def Seg_based_one_iter(n_frames, isSeg, keeprate, iou_TH, available=False):
-    L = np.sum((isSeg==1).astype('int16'))
-    isSeg  = select_by_IoU_seq(n_frames, isSeg, keeprate, iou_TH, available)
-    if L == np.sum((isSeg==1).astype('int16')):
-        iou_TH -= (int)(0.1*iou_TH)
-        print("       <Info> KP_TH decay 10 per cent to %4d, currently got %7d frames"%(iou_TH, L))
-    return isSeg, iou_TH
-    

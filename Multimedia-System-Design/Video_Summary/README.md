@@ -1,5 +1,5 @@
 ## Video and Audio Summary
-#### 2021.04
+#### last update 2021.05.05
 #### @yifan
 ***
 ### Video Player --> `player.py`
@@ -24,10 +24,11 @@ player(frames_path,     # frames path
        size=None)       # need resize is not None
 ```
 ***
-### Video Summary Pipeline
+## Video Summary Pipeline
 
-![](./fig/0.png)
-First, perform the video summary based on `SSIM Score` and `Keypoint Score` (introduce later) to get an embedding score (sum them up) and select the K frames with the smallest score. Correspondingly we can derive the bool set which indicates whether a frame is retained;
+<img src="./fig/overview.png" width="600" />
+
+First, perform the video summary based on `SSIM Score` and `Keypoint Score` (introduce later) to get an embedding score (sum them up which gives better objective performance) and select the K frames with the smallest score. Correspondingly we can derive the bool set which indicates whether a frame is retained;
 
 The audio summary is based on the summary result of the video, given the bool index of video summary result;
 1. Split the audio into blocks, each block has the same time range each frame;
@@ -35,21 +36,26 @@ The audio summary is based on the summary result of the video, given the bool in
 3. Only retain the one with the largest mean absolute magnitude;
 
 ***
-### MS-SSIM Score
-![](./fig/1.png)
-1. Compute the MS-SSIM score for each image with its neighbour frames;
+### SSIM Score
+
+<img src="./fig/ssim.png" width="600" />
+
+1. Compute the MS-SSIM/SSIM score for each image with its neighbour frames;
     1. original filter size is 11 which is modified to 23 in this case;
     2. in the experiments, calculate the MS-SSIM score with its' 4 previous neighbours;
 2. Select the maximum MS-SSIM score (range from 0 to 1) to represent the overlapping with the previous frames;
+3. MS-SSIM is costly, SSIM is used;
 
 ***
 ### Keypoint Score
-![](./fig/1.png)
+
+<img src="./fig/keypoint.png" width="600" />
 
 1. For each frame, detect key points and compute the corresponding descriptor;
     1. ORB and SIFT keypoint detectors are used;
     2. ORB with BRIEF descriptor would run faster than SIFT while less accurate;
     3. SIFT can have a matching selection process based on the descriptor distance;
+    4. Using SIFT with 16200 detection and matching costs less than 5 minutes
 2. Perform keypoint matching using the current frame's descriptor with the previous frames;
     1. To speed up the process, only match the current frame with 4 previous frames;
     2. SIFT with matching point selection is used (better than ORB);
@@ -72,20 +78,73 @@ The audio summary is based on the summary result of the video, given the bool in
 
 ***
 ### Usage
-the main function is in `video_sum.ipynb`
+the main function is in `main.py`
 ```python
+# rename the image to format start from 0.jpg 
 run(name='test',            # Sequence frame folder name (under ./data/)
                             # the frame must named from 0.jpg to *.jpg
+    mode=2,                 # 0: keypoint based
+                            # 1: SSIM based
+                            # 2: keypoint & SSIM based
+                            # 3: segmentation based
     keeprate=90/540,        # keep rate
     fps=30,                 # framerate
     n_frames=-1,            # number of frames (if -1, it will check automatically)
     clean=True,             # clean the ./cache folder
-    HR=True,                # using high resolution images (slower, but accurate)
-                            # high resolution image is under './data/"$name"_hr
     israw=False,            # input is raw format
     raw_par={'folder':'test',   # raw format loaction 
              'H':352,           # raw format Height 
              'W':288,           # raw format Width      
-             'prefix':'Image'}) # raw format prefix
+             'prefix':'Image'}, # raw format prefix
+    copy_to_result=True)    # copy the result from ./cache to ./result
+
+```
+*** 
+```bash
+# run in bash
+python3 main.py <name> <mode>
+```
+### RunTime
+`mode=2` (keypoint & ssim) is partially optimized by computating SSIM using multi-process (n_threads can be changed in `./core/kp_ssim_based.py` line17, to disable the optimization, set line14 `fast=False`)
+***
+#### load for ssim computation (3 threads)
+
+<img src="./fig/load_ssim.png" width="600" />
+
+***
+
+#### load for other part of the main function (cpu is not fully used)
+
+<img src="./fig/load_main.png" width="600" />
+
+***
+#### RunTime Log
+```bash
+alex@Alex Video_Summary % python3 main.py test_video_2 2
+************************************************************
+ Cleaning cache and setup working dir...
+ START
+       <Info> keeprate = 0.1667
+       <Mode> Select by Keypoints & SSIM!
+ Running cmd... : 
+      python3 fast_gen.py SSIM 0 5400 0 & python3 fast_gen.py SSIM 5399 10800 1 & python3 fast_gen.py SSIM 10799 16200 2
+ 99% (5362 of 5401) |################### | Elapsed Time: 0:04:52 ETA:   0:00:02   
+   <RunTime> get_ssim: 293.4 s
+ 99% (5400 of 5401) |################### | Elapsed Time: 0:04:53 ETA:   0:00:00   
+   <RunTime> get_ssim: 293.9 s
+ 99% (5400 of 5401) |################### | Elapsed Time: 0:04:54 ETA:   0:00:00   
+   <RunTime> get_ssim: 294.9 s
+ Finish running cmd!
+   <RunTime> fast_ssim: 305.3 s
+ 99% (16198 of 16200) |################# | Elapsed Time: 0:03:14 ETA:   0:00:00  
+        <Info>  2700/16200 frames retained
+   <RunTime> video_summary: 519.1 s
+   <RunTime> audio_summary:  1.2 s
+ DONE
+ Copy the result from ./cache to ./result ...
+************************************************************
+   <RunTime> main: 546.3 s
 ```
 
+### [Test Data](https://drive.google.com/drive/folders/1E1w_YoGnwO5owHm_Riny20eczDHQ2Lg2?usp=sharing)
+### [Results](https://drive.google.com/drive/folders/1SeBqJZ_YjMDUS4UUrHuvm3p3bIXgPQpU?usp=sharing)

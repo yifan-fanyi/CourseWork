@@ -23,24 +23,25 @@ def Select(audio, sample_p_frame):
         tt.append(tmp[i:i+sample_p_frame//10])
     idx = np.argsort(eng)[-10:]
     idx.sort()
+    if len(idx) < 10:
+        return audio
     res = []
     for i in idx:
         res.append(tt[i])
     return np.concatenate(res, axis=0)
 
-def video_based_audio_removal(audio, idx):
-    sample_p_frame = len(audio) / (len(idx))
+def video_based_audio_removal(audio, idx, sample_p_frame):
     last = 0
     res = []
     for i in range(1, len(idx)):
         if idx[i] == 1:
-            res.append(Select(audio[(int)(last*sample_p_frame):(int)(i*sample_p_frame)], sample_p_frame))
+            res.append(Select(audio[(int)(last*sample_p_frame):(int)(min(last+10, i)*sample_p_frame)], sample_p_frame))
             last = i
     return np.concatenate(res, axis=0)
 
 @Time 
-def audio_summary(audio, idx, fs, return_array=False):
-    audio = video_based_audio_removal(audio, idx)
+def audio_summary(audio, idx, fs, fps, return_array=False):
+    audio = video_based_audio_removal(audio, idx, fs / fps)
     if return_array == True:
         return np.concatenate(res, axis=0)
     else:

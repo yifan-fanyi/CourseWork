@@ -14,14 +14,14 @@ def Time(method):
         return result
     return timed
 
-def clean_cache(name, HR):
+def clean_cache(name, HR, mode):
     os.system("rm -rf ./cache")
     os.system("mkdir ./cache")
     os.system("mkdir ./cache/seg_mask/")
     os.system("mkdir ./cache/keypoint/")
     os.system("mkdir ./cache/result/")
     os.system("mkdir ./cache/result/video_summary/")
-    os.system("mkdir ./result/"+name+'/')
+    os.system("mkdir ./result/"+name+'_mode='+str(mode)+'/')
     if HR == True:
         os.system("cp -r ./data/"+name+'_hr ./cache/frames')
     else:

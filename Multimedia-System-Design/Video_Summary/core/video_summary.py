@@ -6,10 +6,10 @@ import cv2
 import os
 import pickle
 from core.utli import Time
-from core.kp_based import KP_based_one_iter
-from core.seg_based import Seg_based_one_iter
-from core.ssim_based import MS_SSIM_based_one_iter
-from core.kp_ssim_based import KP_SSIM_based_one_iter
+from core.kp_based import select_by_KP
+from core.seg_based import select_by_IoU
+from core.ssim_based import select_by_ssim
+from core.kp_ssim_based import select_by_KP_ssim
 
 def gen_result(idx, return_array=False):
     res, ct = [], 0
@@ -24,27 +24,23 @@ def gen_result(idx, return_array=False):
     return np.array(res)
 
 @Time
-def video_summary(n_frames, keeprate, mode=0):
+def video_summary(n_frames, keeprate, mode=0, available=True):
     print("       <Info> keeprate = %1.4f"%(keeprate))
     isSeg = np.zeros(n_frames).astype('int16')
-    rate = 1
-    kp_TH = 500
-    iou_TH = 0.9
-    ssim_TH = 0.4
-    while rate > keeprate:
-        if mode == 0:
-            isSeg, kp_TH = KP_based_one_iter(n_frames, isSeg, keeprate, kp_TH)
-        elif mode == 1:
-            isSeg, ssim_TH = MS_SSIM_based_one_iter(n_frames, isSeg, keeprate, kp_TH)
-        elif mode == 2:
-            isSeg, _ = KP_SSIM_based_one_iter(n_frames, isSeg, keeprate, None)
-        else:
-            isSeg, iou_TH = Seg_based_one_iter(n_frames, isSeg, keeprate, iou_TH)
-        rate = np.sum(isSeg == 1) / n_frames
-        print("       <Info> %5d/%5d frames retained"%(np.sum(isSeg == 1), n_frames))
-        break
-        if rate > keeprate:
-            print("       <Info> keeprate not satisfied, continue!")
+    if mode == 0:
+        print("       <Mode> Select by Keypoints!")
+        isSeg = select_by_KP(n_frames, isSeg, keeprate)
+    elif mode == 1:
+        print("       <Mode> Select by SSIM!")
+        isSeg = select_by_ssim(n_frames, isSeg, keeprate)
+    elif mode == 2:
+        print("       <Mode> Select by Keypoints & SSIM!")
+        isSeg = select_by_KP_ssim(n_frames, isSeg, keeprate)
+    else:
+        print("       <Mode> Select by IoU of Segmentation Mask!")
+        isSeg = select_by_IoU(n_frames, isSeg, keeprate, available)
+    rate = np.sum(isSeg == 1) / n_frames
+    print("       <Info> %5d/%5d frames retained"%(np.sum(isSeg == 1), n_frames))
     gen_result(isSeg, False)
     with open('./cache/isSeg.pkl', 'wb') as f:
         pickle.dump(isSeg, f)
