@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<Style id="z1">
+<IconStyle><Icon><href>http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png</href></Icon></IconStyle>
+</Style>
+<Placemark><name>SGate</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.283363,34.0188</coordinates></Point>
+</Placemark>
+<Placemark><name>Dog</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.286233,34.018833</coordinates></Point>
+</Placemark>
+<Placemark><name>OHE</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.288947,34.020469</coordinates></Point>
+</Placemark>
+<Placemark><name>Home</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.282447,34.031506</coordinates></Point>
+</Placemark>
+<Placemark><name>Pardee</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.282997,34.020264</coordinates></Point>
+</Placemark>
+<Placemark><name>SGate</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.283363,34.0188</coordinates></Point>
+</Placemark>
+</Document></kml>

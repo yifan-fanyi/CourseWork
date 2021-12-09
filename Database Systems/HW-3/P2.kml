@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<Style id="z1">
+<IconStyle><Icon><href>http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png</href></Icon></IconStyle>
+</Style>
+<Placemark><name>Home</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28244666666667,34.031505555555555</coordinates></Point>
+</Placemark>
+<Placemark><name>NGate</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28372999999999,34.022866666666665</coordinates></Point>
+</Placemark>
+<Placemark><name>Leavey</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28302833333333,34.02161111111111</coordinates></Point>
+</Placemark>
+<Placemark><name>Pardee</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28299666666666,34.02026388888889</coordinates></Point>
+</Placemark>
+<Placemark><name>SGate</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28336333333333,34.0188</coordinates></Point>
+</Placemark>
+<Placemark><name>Law</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28484999999999,34.018966666666664</coordinates></Point>
+</Placemark>
+<Placemark><name>Dog</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28623333333333,34.01883333333333</coordinates></Point>
+</Placemark>
+<Placemark><name>JSH</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28731666666667,34.019669444444446</coordinates></Point>
+</Placemark>
+<Placemark><name>OHE</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28894666666666,34.020469444444444</coordinates></Point>
+</Placemark>
+<Placemark><name>BookStore</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.286575,34.02088055555556</coordinates></Point>
+</Placemark>
+<Placemark><name>Trojan</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28551333333333,34.020430555555556</coordinates></Point>
+</Placemark>
+<Placemark><name>MSU</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28530833333333,34.022758333333336</coordinates></Point>
+</Placemark>
+<Placemark><name>Village</name>
+<styleUrl>#z1</styleUrl><Point><coordinates>-118.28472166666667,34.02527222222222</coordinates></Point>
+</Placemark>
+</Document></kml>

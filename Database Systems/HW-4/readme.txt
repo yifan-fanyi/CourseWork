@@ -1,0 +1,1 @@
+For Q5, I found the data source from "https://gist.github.com/tamros/d96ed117a1738932d9a9a29fef558a34" where contains 59 locations. I have no idea where the 396 points data comes from. 
