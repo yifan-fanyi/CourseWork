@@ -1,0 +1,52 @@
+
+<!DOCTYPE html><html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>
+            CSCI571-HW6
+        </title>
+        <link rel="stylesheet" href="./static/format.css">
+
+    </head>
+    <body>
+        <header id="header">   
+            <nav class="nav">
+                <a id="title">
+                    Artist Search
+                </a>
+            </nav>
+        </header>
+        <main>
+            <form class="wrapper" id="wrapper" onsubmit="load_Artists()">
+                <input type="image" src="./static/search_icon.png" class="search-icon" id="search-icon" alt="Submit button">
+                <input class="searchtext" placeholder="Please enter an artist name" type="text" id="searchtext" required>
+                <img class="clear-icon" src="./static/clear_icon.png" onclick="clearText()" id="clear-icon"/>
+            </form>   
+            
+            <div class="loading" id="loading">
+                
+            </div>
+
+            </script>
+
+            <div class="search-results" id="search-results">
+                
+            </div>
+
+            <div class="loading1" id="loading1">
+                
+            </div>
+            <div class="search-details" id="search-details">
+            </div>
+
+
+            </div>
+            <div class="end" id="end">
+                <a class="text" id="text" href="https://www.artsy.net" target="_blank"> Powered By <img class="icon" src="./static/artsy_logo.svg" /> Artsy</a>
+            </div>
+        </main>
+        <script type="application/javascript" src="./static/csci571_0525.js"></script>
+    </body>
+</html>
+

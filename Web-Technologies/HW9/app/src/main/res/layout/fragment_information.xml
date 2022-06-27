@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".information"
+    tools:menu="@menu/menu_artist">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:layout_marginVertical="60dp"
+            android:layout_marginHorizontal="20dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Artist Name"
+            android:id="@+id/info_name"
+            android:layout_marginVertical="60dp"
+            android:layout_marginHorizontal="120dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="120dp"
+            android:text="Nationality" />
+
+        <EditText
+            android:id="@+id/info_nation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="120dp"
+            android:layout_marginVertical="120dp"
+            android:text="Artist Nationality" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Birthday"
+            android:layout_marginVertical="180dp"
+            android:layout_marginHorizontal="20dp"
+            />
+
+        <EditText
+            android:id="@+id/info_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="120dp"
+            android:layout_marginVertical="180dp"
+            android:text="Artist Birthday" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deathday"
+            android:layout_marginVertical="240dp"
+            android:layout_marginHorizontal="20dp"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Artist Deathday"
+            android:id="@+id/info_death"
+            android:layout_marginVertical="240dp"
+            android:layout_marginHorizontal="120dp"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="300dp"
+            android:text="Biography" />
+
+        <EditText
+            android:id="@+id/info_bio"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginHorizontal="120dp"
+            android:layout_marginVertical="300dp"
+            android:text="Artist Biography"
+            android:inputType="none"
+
+            />
+
+
+</FrameLayout>

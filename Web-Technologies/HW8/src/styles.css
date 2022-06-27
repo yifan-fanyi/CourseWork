@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+.card-img-top {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.spinner1 { 
+    position: fixed; 
+    z-index: 1031; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+}
+
+
+.card {
+    background-color: #205375!important;
+}
+.alert {
+    width:300%;
+}
+.card:hover {
+    background-color: #0e344e!important;
+    color: rgb(255,255,255);
+}
+
+.card:active {
+    background-color: #0e344e!important;
+    color: rgb(255,255,255);
+}
+body {
+    padding-bottom: 100px;
+}
+.nav-tabs > li > a:hover{
+    background-color: #4a63e3 !important;
+  }

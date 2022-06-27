@@ -1,0 +1,102 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Artist Search</a>
+  </div>
+</nav>
+
+
+
+<div class="content" role="main">
+  <div class="input-group form-group has-feedback has-clear input-border-focus">
+    <input type="text" class="form-control" id="searchtext" placeholder="Please enter an artist name." onkeyup="EnableDisable(this)">        
+  </div>
+  <div class="input-group-btn text-center">
+    <button type="button" class="btn btn-primary" disabled type="submit" id="search-icon" onsubmit="load_Artists()">
+        Search
+        <span class="spinner-border spinner-border-sm" id="spinner" style="visibility: hidden"></span>
+    </button>
+    <button type="button" class="btn btn-primary" disabled id="clear-icon" onclick="clearText()">
+        Clear
+    </button>
+  </div>
+
+<div class="container-fluid py-2">
+  <div class="d-flex flex-row flex-nowrap overflow-auto" id="search-results">
+
+  </div>
+</div>
+
+<div class="d-flex justify-content-center" >
+  <span class="spinner-border spinner-border-lg" id="spinner1" style="visibility: hidden"></span>
+</div>
+
+  <ul class="nav nav-tabs d-flex justify-content-center" id="details" role="tablist"  style="visibility: hidden">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="search-detailsmain" data-bs-toggle="tab" data-bs-target="#search-details" type="button" role="tab" aria-controls="search-details" aria-selected="true">Artist Info</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="search-artworksmain" data-bs-toggle="tab" data-bs-target="#search-artworks" type="button" role="tab" aria-controls="search-artworks" aria-selected="false">Artworks</button>
+    </li>
+  </ul>
+  <div class="tab-content d-flex justify-content-center" id="details1">
+    <div class="tab-pane fade show active text-center" role="tabpanel" aria-labelledby="search-details" id="search-details">
+
+    </div>
+    <div class="tab-pane fade text-center " role="tabpanel" aria-labelledby="search-artworks" id="search-artworks">
+      <div class="container">
+        <div class="row" id="search-artworks1">
+      
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div id="dialog_img"></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closemodal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       
+        <div class="modal-body">
+          <span class="spinner-border spinner-border-lg" id="spinner2" style="visibility: hidden"></span>
+          <div class="row" id="modal-body">
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+<div class="navbar fixed-bottom navbar-light bg-dark">
+  <div class="container-fluid justify-content-center">
+      <a class="navbar-brand text-light" href="https://www.artsy.net">
+        Powered By 
+        <img class="icon" src="assets/logo.png" height="24"/> 
+        Artsy
+      </a>
+  </div>
+</div>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<router-outlet></router-outlet>
